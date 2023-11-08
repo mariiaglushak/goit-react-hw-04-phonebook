@@ -32,7 +32,7 @@ const App = () => {
     setFilter(e.currentTarget.value);
   };
 
-  const getContacts = () => {
+  const getContacts = contacts => {
     const normalizeFilter = filter.toLowerCase();
 
     return contacts.filter(contact =>
@@ -50,7 +50,7 @@ const App = () => {
     localStorage.setItem('contacts', JSON.stringify(contacts));
   }, [contacts]);
 
-  const contactElem = getContacts();
+  const contactElem = getContacts(contacts);
 
   return (
     <>
