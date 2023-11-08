@@ -34,11 +34,6 @@ const App = () => {
 
   const getContacts = () => {
     const normalizeFilter = filter.toLowerCase();
-    // return setFilter(
-    //   contacts.filter(contact =>
-    //     contact.name.toLowerCase().includes(normalizeFilter)
-    //   )
-    // );
 
     return contacts.filter(contact =>
       contact.name.toLowerCase().includes(normalizeFilter)
