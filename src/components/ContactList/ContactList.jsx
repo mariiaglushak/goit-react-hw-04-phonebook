@@ -16,5 +16,3 @@ const ContactList = ({ contacts, text, onClick }) => {
 };
 
 export default ContactList;
-
-

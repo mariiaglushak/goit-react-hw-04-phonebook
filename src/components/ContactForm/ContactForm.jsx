@@ -1,51 +1,60 @@
-import { Component } from 'react';
+import React, { useState } from 'react';
 import { FofmBasic } from './ContactFormStyle';
 
 import Input from 'components/Input/Input';
 import AddContactBtn from 'components/Button/AddContactBtn';
 
-class ContactForm extends Component {
-  state = {
-    name: '',
-    number: '',
-  };
+const ContactForm = ({ onSubmitHendler }) => {
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
 
-  handleFormInput = e => {
+  const handleFormInput = e => {
     const inputNameValue = e.target.value;
-    this.setState({ [e.target.name]: inputNameValue });
+    const inputName = e.target.name;
+    switch (inputName) {
+      case 'name': {
+        setName(inputNameValue);
+        return;
+      }
+      case 'number': {
+        setNumber(inputNameValue);
+        return;
+      }
+      default:
+        return;
+    }
   };
 
-  handlerSubmitForm = e => {
+  const handlerSubmitForm = e => {
     e.preventDefault();
-    this.props.onSubmitHendler(this.state);
-    this.resetState();
+    onSubmitHendler({ name, number });
+    resetState();
   };
 
-  resetState = () => this.setState({ name: '', number: '' });
+  const resetState = () => {
+    setName('');
+    setNumber('');
+  };
 
-  render() {
-    const { name, number } = this.state;
-
-    return (
-      <FofmBasic onSubmit={this.handlerSubmitForm}>
-        <Input
-          onChange={this.handleFormInput}
-          value={name}
-          type="text"
-          name="name"
-          required="required"
-        ></Input>
-        <Input
-          value={number}
-          onChange={this.handleFormInput}
-          type="tel"
-          name="number"
-          required="required"
-        ></Input>
-        <AddContactBtn text="add contact" />
-      </FofmBasic>
-    );
-  }
-}
+  return (
+    <FofmBasic onSubmit={handlerSubmitForm}>
+      <Input
+        onChange={handleFormInput}
+        value={name}
+        type="text"
+        name="name"
+        required="required"
+      ></Input>
+      <Input
+        value={number}
+        onChange={handleFormInput}
+        type="tel"
+        name="number"
+        required="required"
+      ></Input>
+      <AddContactBtn text="add contact" />
+    </FofmBasic>
+  );
+};
 
 export default ContactForm;
